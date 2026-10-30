@@ -456,7 +456,51 @@ crud:["Flask","Python","HTML","CSS"],
 amazon:["HTML","CSS","JavaScript","OpenAI"]
 };
 const $=s=>document.querySelector(s),L=k=>G+P[k][2];
-const card=k=>`<div class="gpc"><span>${P[k][0]}<small>${P[k][1]}</small></span><div class="ics"><a href="${L(k)}" target="_blank" title="Website"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a><a href="${L(k)}" target="_blank" title="GitHub"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a><a href="${L(k)}" target="_blank" title="Demo Video"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg></a></div></div>`;
+const projectDestinations={
+  "axon": {
+    "website": "https://axon-frontend-vxa8.vercel.app/",
+    "video": "https://www.youtube.com/watch?v=U4G0mvxI6JU&t=2690s"
+  },
+  "triage": {
+    "video": "https://drive.google.com/file/d/1F3aey_h_MdQpExmnNteQ7U2clWUB6Nm4/view?usp=sharing"
+  },
+  "maestro": {
+    "website": "https://maestroaipao.vercel.app/",
+    "video": "https://drive.google.com/file/d/137-SecJhiRqr-gmYM6uvoJXmeg9AGMAo/view?usp=sharing"
+  },
+  "bwai": {
+    "video": "https://drive.google.com/file/d/1bC8uQ6VM5hAUmzwi6VLRgJaSiOm0UKri/view?usp=sharing"
+  },
+  "adhikaar": {
+    "website": "https://adhikaar-setu-project.vercel.app/",
+    "video": "https://drive.google.com/file/d/1CAWCMB8SF9i2VuDYfvIm9XGH2hdcSP4J/view?usp=sharing"
+  },
+  "cc": {
+    "video": "https://drive.google.com/file/d/1JD0ThGoBZuuh_Ih6PSDvpXBBp64JhQtu/view?usp=sharing"
+  },
+  "satqueryai": {
+    "website": "https://northstar-satqueryai.vercel.app/",
+    "video": "https://drive.google.com/file/d/1o7knaoeN79y0jGAjs-gpIK8b0zunkcri/view?usp=sharing"
+  },
+  "mlcl": {
+    "website": "https://ieeexplore.ieee.org/document/11467148"
+  },
+  "sociogate": {
+    "website": "https://sociogate.hexamad.in/"
+  }
+};
+const projectIcons={
+  "website": "<svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"2\" y1=\"12\" x2=\"22\" y2=\"12\"></line><path d=\"M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z\"></path></svg>",
+  "github": "<svg viewBox=\"0 0 24 24\"><path d=\"M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22\"></path></svg>",
+  "video": "<svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"10\"></circle><polygon points=\"10 8 16 12 10 16 10 8\"></polygon></svg>"
+};
+function projectLinks(k){
+  const destinations=projectDestinations[k]||{};
+  return [["website",destinations.website,"Website"],["github",L(k),"GitHub"],["video",destinations.video,"Demo Video"]]
+    .filter(([,url])=>url)
+    .map(([type,url,label])=>`<a href="${url.replace(/&/g,"&amp;")}" target="_blank" rel="noopener noreferrer" title="${label}" aria-label="${P[k][0]}: ${label}">${projectIcons[type]}</a>`).join("");
+}
+const card=k=>`<div class="gpc"><span>${P[k][0]}<small>${P[k][1]}</small></span><div class="ics">${projectLinks(k)}</div></div>`;
 
 function open_(i){$("#pt").textContent=D[i].t;$("#pb").innerHTML=D[i].g.map(([n,ks])=>`<div class="gp"><h4>${n}</h4>${ks.map(card).join("")}</div>`).join("");$("#ov").hidden=false;document.body.style.overflow="hidden"}
 function close_(){$("#ov").hidden=true;document.body.style.overflow=""}
@@ -470,7 +514,7 @@ const upd=()=>{const c=trk.scrollLeft>=max()-2?ds.length-1:ds.reduce((best,_,i)=
 trk.addEventListener("scroll",upd,{passive:true});pv.onclick=()=>trk.scrollBy({left:-st(),behavior:"smooth"});nx.onclick=()=>trk.scrollBy({left:st(),behavior:"smooth"});
 ds.forEach((d,i)=>d.onclick=()=>trk.scrollTo({left:target(i),behavior:"smooth"}));upd()}
 const F=["axon","intellitrail","satqueryai","adhikaar","maestro","sociogate","mlcl"],R=["gdg","tv","cc","resume","tcs","study","bwai","news","triage","pm"];
-const pj=(k,i,ds)=>`<div class="pj" data-k="${k}" style="--h:${(i*47+20)%360}"><div class="ovr"><h3>${P[k][0]}</h3><p>${P[k][1]}</p></div><div class="go-ics"><a href="${L(k)}" target="_blank" title="Website"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a><a href="${L(k)}" target="_blank" title="GitHub"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a><a href="${L(k)}" target="_blank" title="Demo Video"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg></a></div><b>${P[k][0]}</b>${ds?`<div class="ds"><p>${P[k][1]}</p><div class="ds-tags">${T[k].map(t=>`<i>${t}</i>`).join("")}</div></div>`:""}</div>`;
+const pj=(k,i,ds)=>`<div class="pj" data-k="${k}" style="--h:${(i*47+20)%360}"><div class="ovr"><h3>${P[k][0]}</h3><p>${P[k][1]}</p></div><div class="go-ics">${projectLinks(k)}</div><b>${P[k][0]}</b>${ds?`<div class="ds"><p>${P[k][1]}</p><div class="ds-tags">${T[k].map(t=>`<i>${t}</i>`).join("")}</div></div>`:""}</div>`;
 $("#ptrk").innerHTML=F.map((k,i)=>pj(k,i)).join("");$("#mgrid").innerHTML=R.map((k,i)=>pj(k,i+7,1)).join("");
 function cap(k){$("#ptags").innerHTML=T[k].map(t=>`<span>${t}</span>`).join("");$("#pcap").innerHTML=`<h3>${P[k][0]}</h3><p>${P[k][1]}</p>`}
 cap(F[0]);document.querySelectorAll("#ptrk .pj").forEach(e=>e.addEventListener("pointerenter",()=>cap(e.dataset.k)));
